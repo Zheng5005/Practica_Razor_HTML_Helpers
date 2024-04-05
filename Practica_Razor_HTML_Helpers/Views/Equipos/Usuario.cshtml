@@ -1,0 +1,137 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+*@
+@{
+    IEnumerable<string> strList = new List<string> { "DAW", "POO", "MAT3", "TW" };
+}
+
+<h1>Usuarios</h1>
+<br />
+<form asp-action="CrearUser">
+    @*Inicio del Formulario*@
+
+    @*Nombre del Usuario*@
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <label>Nombre Usuario</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.TextBox("nombre", "", new { @class = "form-control" })
+        </div>
+    </div>
+
+    @*Contraseña del usuario*@
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <label>Password</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.Password("password", "", new { @class = "form-control" })
+        </div>
+    </div>
+
+    @*Genero del Usuario*@
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <label>Genero</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.RadioButton("Genero","Masculino", true, new{id="masculino"})
+            Masculino
+            @Html.RadioButton("Genero", "Femenino", false, new { id = "femenino" })
+            Femenino
+        </div>
+    </div>
+
+    @*Direccion del Usuario*@
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <label>Direccion</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.TextArea("Direccion","Ingrese su direccion", new{@class="form-control", id= "idDireccion"})
+        </div>
+    </div>
+
+    @*Pasatiempos del Usuario*@
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <label>Pasatiempos</label>
+        </div>
+        <div class="col-sm-6">
+            @Html.CheckBox("Pasatiempos")
+            Bailar
+            @Html.CheckBox("Pasatiempos")
+            Correr
+            @Html.CheckBox("Pasatiempos")
+            Escalar
+            @Html.CheckBox("Pasatiempos")
+            Peliculas
+        </div>
+    </div>
+
+    @*Cursos del Usuario*@
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <label>Cursos</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.DropDownList("cursos", new SelectList(strList, strList.FirstOrDefault()), "--Seleccionar curso ----" )
+        </div>
+    </div>
+
+    @*Conocimientos del Usuario*@
+    <div class="form-group row mb-4">
+        <div class="col-sm-2">
+            <label>Conocimientos</label>
+        </div>
+        <div class="col-sm-4">
+            @Html.ListBox("Conocimientos", new List<SelectListItem>{
+            new SelectListItem{Text = "C#", Value = "C#"},
+            new SelectListItem{Text = "ASP.NET", Value = "ASP.NET"},
+            new SelectListItem{Text = "ASP.NET CORE", Value = "ASP.NET CORE"},
+            new SelectListItem{Text = "Azure", Value = "Azure"}
+            })
+        </div>
+    </div>
+
+    @*Boton Guardar*@
+    <div class="form-group row mb-4">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+            <input type="submit" class="btn btn-primary" value="Guardar" />
+        </div>
+    </div>
+
+    @*Tabla Usuarios*@
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Password</th>
+                <th>Genero</th>
+                <th>Direccion</th>
+                <th>Pasatiempos</th>
+                <th>Cursos</th>
+                <th>Conocimientos</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var User in (IEnumerable<dynamic>)ViewData["listadoDeUsuarios"])
+            {
+                <tr>
+                    <td>@User.nombre</td>
+                    <td>@User.password</td>
+                    <td>@User.genero</td>
+                    <td>@User.direccion</td>
+                    <td>@User.Pasatiempos</td>
+                    <td>@User.cursos</td>
+                    <td>@User.Conocimientos</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @*Fin del Formulario*@
+</form>
